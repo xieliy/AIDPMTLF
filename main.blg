@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: ieee.bst
+Database file #1: egbib.bib
+Warning--empty journal in kim2010tree
+You've used 27 entries,
+            2120 wiz_defined-function locations,
+            683 strings with 9267 characters,
+and the built_in function-call counts, 10812 in all, are:
+= -- 1112
+> -- 465
+< -- 13
++ -- 185
+- -- 156
+* -- 738
+:= -- 1690
+add.period$ -- 90
+call.type$ -- 27
+change.case$ -- 159
+chr.to.int$ -- 0
+cite$ -- 28
+duplicate$ -- 445
+empty$ -- 843
+format.name$ -- 156
+if$ -- 2355
+int.to.chr$ -- 0
+int.to.str$ -- 27
+missing$ -- 26
+newline$ -- 139
+num.names$ -- 54
+pop$ -- 166
+preamble$ -- 1
+purify$ -- 132
+quote$ -- 0
+skip$ -- 348
+stack$ -- 0
+substring$ -- 737
+swap$ -- 149
+text.length$ -- 13
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 108
+warning$ -- 1
+while$ -- 108
+width$ -- 29
+write$ -- 312
+(There was 1 warning)
