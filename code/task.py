@@ -9,13 +9,13 @@ import time
 
 class task:
 
-    def __init__(self, path, data, label, index, Lambda, ITER, p_ite, step, p_train):
+    def __init__(self, path, data, label, index, Lambda, ITER, p_ite, step_task, p_train):
         self.path = path  # output path
         self.index = index # task number
         self.Lambda = Lambda # regularization parameter
         self.ITER = ITER # number of current iteration
         self.p_ite = p_ite # number of iterations to print out
-        self.step = step  # step size
+        self.step_task = step_task  # step size of task
         self.data_train = data[:int(len(data) * p_train)]  # training data
         self.data_test = data[int(len(data) * p_train):]
         self.label_train = label[:int(len(data) * p_train)]  # training label
@@ -57,15 +57,24 @@ class task:
         self.q = minimize(self.obj, x0, method='Nelder-Mead').x  # minimization procedure
         self.p = zeros(self.d)
 
-    def logistic_forward(self):
+    def logistic_grad_q(self):
         '''grad of logistic loss w.r.t q'''
         v = [] # store values
         w = array(self.q) + array(self.p)
         for i in range(self.L):
             nyx = -1.0 * self.label_train[i] * self.data_train[i]
             v.append(nyx * exp(dot(nyx,w)) / (1.0 + exp(dot(nyx,w))))
-        q_new = w - self.step * (mean(array(v), axis=0) + self.Lambda * array(self.q))
+        q_new = w - self.step_task * (mean(array(v), axis=0) + self.Lambda * array(self.q))
         return q_new
+
+    def logistic_grad_p(self):
+        '''grad of logistic loss w.r.t p'''
+        v = [] # store values
+        w = array(self.q) + array(self.p)
+        for i in range(self.L):
+            nyx = -1.0 * self.label_train[i] * self.data_train[i]
+            v.append(nyx * exp(dot(nyx,w)) / (1.0 + exp(dot(nyx,w))))
+        return mean(array(v), axis=0)
 
     def run(self):
 
@@ -73,10 +82,14 @@ class task:
 
         for i in range(self.ITER):
             self.countITER = i
-            p_new =   # how to receive from central server
 
-            self.q = self.logistic_forward()
-            grad =
+            p_new =   # how to receive from central server
+            q_old = self.q
+            self.q = self.logistic_grad_q()
+
+            self.measurec(self.data_test, self.label_test, array(p_new) + array(q_old))
+
+            grad = self.logistic_grad_p()
 
         duration = time.time() - start_time
 
@@ -84,9 +97,10 @@ class task:
             f.write('Task' + str(self.index) + ':' +str(duration))
             f.write('\n')
 
+        # send grad and index to server
+
+
+
     def store(self):
         pickle.dump(self.error_all, open(self.path + self.fn, 'w')) # store error rate of all iterations
         pickle.dump(array(self.q) + array(self.p), open(self.path + self.fn, 'w')) # store error rate of all iterations
-
-
-if __name__ == '__name__':
