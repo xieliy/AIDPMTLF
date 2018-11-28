@@ -9,13 +9,14 @@ import time
 
 class task:
 
-    def __init__(self, path, data, label, index, Lambda, ITER, p_ite, step_task, p_train):
+    def __init__(self, path, data, label, index, Lambda, ITER, p_ite, step_task, d, p_train):
         self.path = path  # output path
         self.index = index # task number
         self.Lambda = Lambda # regularization parameter
         self.ITER = ITER # number of current iteration
         self.p_ite = p_ite # number of iterations to print out
         self.step_task = step_task  # step size of task
+        self.d = d # data dim
         self.data_train = data[:int(len(data) * p_train)]  # training data
         self.data_test = data[int(len(data) * p_train):]
         self.label_train = label[:int(len(data) * p_train)]  # training label
@@ -24,7 +25,6 @@ class task:
         self.error_all = [] # error rate of all iterations
         self.q = [] # task specific component
         self.p = [] # shared component
-        self.d = len(data[0]) # data dim
         self.L = len(self.label_train) # number of training data
         self.fn = 'error_all' + str(self.index) # file name
 
@@ -44,7 +44,6 @@ class task:
 
     def obj(self, x):
         '''objective function of classification task, x here is q, in the first iteration, p=0'''
-
         jfd = self.lr(self.label_train[0] * dot(self.label_train[0], x))
         for i in range(1, self.L):
             jfd = jfd + self.lr(self.label_train[i] * dot(self.label_train[i], x))
