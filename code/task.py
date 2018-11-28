@@ -1,23 +1,31 @@
 # Task side
 
-from numpy import dot, array, sign
+from numpy import dot, array, sign, zeros, mean
+from math import log, exp
+from numpy.linalg import norm
+from scipy.optimize import minimize
 import pickle
+import time
 
 class task:
 
-    def __init__(self, path, data, label, index, Lambda, ITER, p_ite, p_train):
+    def __init__(self, path, data, label, index, Lambda, ITER, p_ite, step, p_train):
         self.path = path  # output path
         self.index = index # task number
         self.Lambda = Lambda # regularization parameter
         self.ITER = ITER # number of current iteration
         self.p_ite = p_ite # number of iterations to print out
+        self.step = step  # step size
         self.data_train = data[:int(len(data) * p_train)]  # training data
         self.data_test = data[int(len(data) * p_train):]
         self.label_train = label[:int(len(data) * p_train)]  # training label
         self.label_test = label[int(len(data) * p_train):]
         self.countITER = 0 # number of current iteration
         self.error_all = [] # error rate of all iterations
-        self.model = [] # model
+        self.q = [] # task specific component
+        self.p = [] # shared component
+        self.d = len(data[0]) # data dim
+        self.L = len(self.label_train) # number of training data
         self.fn = 'error_all' + str(self.index) # file name
 
     def measurec(self, data, label, model):
@@ -29,13 +37,56 @@ class task:
         if self.ITER % self.p_ite == 0:
             print "This is task " + str(self.index) + ", the error rate in iteration "  + str(self.ITER) + " is " + str(err)
 
+    def lr(self, z):
+        '''logistic loss'''
+        logr = log(1.0 + exp(-z))
+        return logr
+
+    def obj(self, x):
+        '''objective function of classification task, x here is q, in the first iteration, p=0'''
+
+        jfd = self.lr(self.label_train[0] * dot(self.label_train[0], x))
+        for i in range(1, self.L):
+            jfd = jfd + self.lr(self.label_train[i] * dot(self.label_train[i], x))
+        f = (1.0 / self.L) * jfd + (self.Lambda / 2.0) * (norm(x) ** 2)
+        return f
+
+    def model_init(self):
+        '''$\q_{t}^{(0)}$ using STL'''
+        x0 = zeros(self.d)
+        self.q = minimize(self.obj, x0, method='Nelder-Mead').x  # minimization procedure
+        self.p = zeros(self.d)
+
+    def logistic_forward(self):
+        '''grad of logistic loss w.r.t q'''
+        v = [] # store values
+        w = array(self.q) + array(self.p)
+        for i in range(self.L):
+            nyx = -1.0 * self.label_train[i] * self.data_train[i]
+            v.append(nyx * exp(dot(nyx,w)) / (1.0 + exp(dot(nyx,w))))
+        q_new = w - self.step * (mean(array(v), axis=0) + self.Lambda * array(self.q))
+        return q_new
+
     def run(self):
-        # Read q_{t}^{0} in task t, do only one time for each task, for whole project
 
+        start_time = time.time()
 
+        for i in range(self.ITER):
+            self.countITER = i
+            p_new =   # how to receive from central server
+
+            self.q = self.logistic_forward()
+            grad =
+
+        duration = time.time() - start_time
+
+        with open(self.path + 'duration.txt', 'a+') as f:  # store the training time
+            f.write('Task' + str(self.index) + ':' +str(duration))
+            f.write('\n')
 
     def store(self):
         pickle.dump(self.error_all, open(self.path + self.fn, 'w')) # store error rate of all iterations
+        pickle.dump(array(self.q) + array(self.p), open(self.path + self.fn, 'w')) # store error rate of all iterations
 
 
 if __name__ == '__name__':
