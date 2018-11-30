@@ -1,7 +1,7 @@
 import csv
 from task import task
 from server import server
-from multiprocessing import Queue, Process
+from multiprocessing import Queue, Lock, Process
 
 path_project = '/home/xieliyan/Dropbox/GPU/GPU1/AIDPMTLF/' # path of project
 path_data = path_project + "data/" # path of data
@@ -19,8 +19,10 @@ data_all = [[] for i in xrange(T)] # data for all tasks
 label_all = [[] for i in xrange(T)] # label for all tasks
 tasks = [] # create tasks
 
+lock = Lock()
+
 conn = Queue() # creating a Queue between tasks and server
-server_ins = server(path_results, conn, d, step_server, Lambda, T) # create server
+server_ins = server(path_results, conn, lock, d, step_server, Lambda, T) # create server
 for k in xrange(T):
     with open(path_data + 'data' + str(k + 1), 'rb') as f:
         reader = csv.reader(f)
