@@ -6,7 +6,7 @@ from multiprocessing import Queue, Lock, Process
 path_project = '/home/xieliyan/Dropbox/GPU/GPU1/AIDPMTLF/' # path of project
 path_data = path_project + "data/" # path of data
 path_results = path_project + "results/" # path of results
-T = 2 # number of task
+T = 10 # number of task
 wait_time = [i+1 for i in xrange(T)] # waiting time in one iteration, each task
 p_train = 0.7 # percentage of training set
 Lambda = 0.001 # regularization parameter

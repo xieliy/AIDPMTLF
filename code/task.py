@@ -46,9 +46,9 @@ class task:
 
     def obj(self, x):
         '''objective function of classification task, x here is q, in the first iteration, p=0'''
-        jfd = self.lr(self.label_train[0] * dot(self.label_train[0], x))
+        jfd = self.lr(self.label_train[0] * dot(self.data_train[0], x))
         for i in xrange(1, self.L):
-            jfd = jfd + self.lr(self.label_train[i] * dot(self.label_train[i], x))
+            jfd = jfd + self.lr(self.label_train[i] * dot(self.data_train[i], x))
         f = (1.0 / self.L) * jfd + (self.Lambda / 2.0) * (norm(x) ** 2)
         return f
 
@@ -63,7 +63,7 @@ class task:
         v = [] # store values
         w = array(self.q) + array(self.p)
         for i in xrange(self.L):
-            nyx = -1.0 * self.label_train[i] * self.data_train[i]
+            nyx = -1.0 * self.label_train[i] * array(self.data_train[i])
             v.append(nyx * exp(dot(nyx,w)) / (1.0 + exp(dot(nyx,w))))
         q_new = w - self.step_task * (mean(array(v), axis=0) + self.Lambda * array(self.q))
         return q_new
@@ -73,7 +73,7 @@ class task:
         v = [] # store values
         w = array(self.q) + array(self.p)
         for i in xrange(self.L):
-            nyx = -1.0 * self.label_train[i] * self.data_train[i]
+            nyx = -1.0 * self.label_train[i] * array(self.data_train[i])
             v.append(nyx * exp(dot(nyx,w)) / (1.0 + exp(dot(nyx,w))))
         return mean(array(v), axis=0)
 
