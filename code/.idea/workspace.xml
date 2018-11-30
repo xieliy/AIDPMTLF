@@ -28,9 +28,11 @@
       <file leaf-file-name="task.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-              <folding />
+            <state relative-caret-position="473">
+              <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+              <folding>
+                <element signature="e#13#60#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,9 +40,11 @@
       <file leaf-file-name="server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="270">
+              <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="17" />
+              <folding>
+                <element signature="e#111#148#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,10 +52,10 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="45">
+              <caret line="3" column="42" lean-forward="true" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
               <folding>
-                <element signature="e#100#110#0" expanded="true" />
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,29 +72,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>p_ite</find>
-      <find>model</find>
-      <find>self</find>
-      <find>lr</find>
-      <find>label_train</find>
-      <find>sign</find>
-      <find>label</find>
-      <find>zeros</find>
-      <find>Lambda</find>
-      <find>index</find>
-      <find>with open</find>
-      <find>dot</find>
-      <find>L</find>
-      <find>exp</find>
-      <find>p_train</find>
-      <find>data</find>
-      <find>step</find>
       <find>p_n</find>
-      <find>obj</find>
       <find>mu</find>
       <find>x0</find>
+      <find>sign</find>
+      <find>array</find>
+      <find>data</find>
+      <find>data_all</find>
+      <find>label</find>
+      <find>ITER</find>
+      <find>p_ite</find>
+      <find>step_task</find>
+      <find>p_train</find>
+      <find>measurec</find>
+      <find>lr</find>
+      <find>processes</find>
+      <find>obj</find>
+      <find>logistic_grad_q</find>
+      <find>logistic_grad_p</find>
+      <find>model_init</find>
+      <find>p_new</find>
+      <find>path</find>
       <find>self.d</find>
+      <find>Lambda</find>
+      <find>step_server</find>
       <find>range</find>
+      <find>server_conns</find>
+      <find>multiprocessing</find>
+      <find>tasks</find>
+      <find>task_conn</find>
+      <find>server_conn</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -107,10 +118,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="291" />
-    <option name="y" value="381" />
+    <option name="x" value="166" />
+    <option name="y" value="124" />
     <option name="width" value="1816" />
-    <option name="height" value="1020" />
+    <option name="height" value="982" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -298,7 +309,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="291" y="381" width="1816" height="1020" extended-state="0" />
+    <frame x="166" y="124" width="1816" height="982" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -340,7 +351,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1485">
           <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#13#60#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -348,7 +361,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#111#148#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -357,7 +372,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#100#110#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -374,7 +389,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#13#60#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -382,7 +399,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="98" lean-forward="true" selection-start-line="3" selection-start-column="98" selection-end-line="3" selection-end-column="98" />
-          <folding />
+          <folding>
+            <element signature="e#111#148#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -405,26 +424,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/task.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="473">
+          <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding>
+            <element signature="e#13#60#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="270">
+          <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="17" />
+          <folding>
+            <element signature="e#111#148#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="45">
+          <caret line="3" column="42" lean-forward="true" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
           <folding>
-            <element signature="e#100#110#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
