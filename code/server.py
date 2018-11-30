@@ -1,7 +1,6 @@
 # Server side
 
 from numpy import linalg, diag, zeros
-import multiprocessing
 
 class server:
 

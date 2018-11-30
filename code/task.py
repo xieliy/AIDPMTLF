@@ -6,11 +6,10 @@ from numpy.linalg import norm
 from scipy.optimize import minimize
 import pickle
 import time
-import multiprocessing
 
 class task:
 
-    def __init__(self, path, data, label, task_conn, index, Lambda, ITER, p_ite, step_task, d, p_train):
+    def __init__(self, path, data, label, task_conn, index, Lambda, ITER, p_ite, step_task, d, p_train, wait_time):
         self.path = path  # output path
         self.task_conn = task_conn # connection object
         self.index = index # task number
@@ -19,6 +18,7 @@ class task:
         self.p_ite = p_ite # number of iterations to print out
         self.step_task = step_task  # step size of task
         self.d = d # data dim
+        self.wait_time = wait_time  # output path
         self.data_train = data[:int(len(data) * p_train)]  # training data
         self.data_test = data[int(len(data) * p_train):]
         self.label_train = label[:int(len(data) * p_train)]  # training label
@@ -81,19 +81,23 @@ class task:
 
         start_time = time.time()
 
-        for i in xrange(self.ITER):
-            self.countITER = i
+        while not self.task_conn.empty():
+            p_new, ind = self.task_conn.get()  # received from central server
 
-            while not self.task_conn.empty():
-                p_new, ind = self.task_conn.get()  # received from central server
+            if self.index == ind:
 
-                if self.index == ind:
-                    q_old = self.q
-                    self.q = self.logistic_grad_q()
-                    self.measurec(self.data_test, self.label_test, array(p_new) + array(q_old))
-                    grad = self.logistic_grad_p()
+                time.sleep(self.wait_time)  # sleep for a while.
 
-                    self.task_conn.put((grad, self.index)) # send grad and index to server
+                q_old = self.q
+                self.q = self.logistic_grad_q()
+                self.measurec(self.data_test, self.label_test, array(p_new) + array(q_old))
+                grad = self.logistic_grad_p()
+
+                self.task_conn.put((grad, self.index)) # send grad and index to server
+
+                self.countITER = self.countITER + 1
+                if self.countITER == self.ITER:
+                    break
 
         duration = time.time() - start_time
 
