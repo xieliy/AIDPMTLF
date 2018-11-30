@@ -1,5 +1,4 @@
 # Server side
-# use daemon process to stop after main process stop, use lock allow one task process at a time
 
 from numpy import linalg, diag, zeros
 import multiprocessing
@@ -17,6 +16,9 @@ class server:
         self.S = zeros((self.T, self.d))
 
     def run(self):
+
+        for i in xrange(self.T):
+            self.server_conn.put((zeros(self.d), i)) # start from server, send init p_new to each task
 
         while not self.server_conn.empty():
             grad, index = self.server_conn.get() # received from tasks
