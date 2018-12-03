@@ -1,10 +1,10 @@
 # Server side
 
-from numpy import linalg, diag, zeros
+from numpy import linalg, diag, zeros, random
 
 class server:
 
-    def __init__(self, path, server_conn, lock, d, step_server, Lambda, T):
+    def __init__(self, path, server_conn, lock, d, step_server, Lambda, T, mu, sigma):
         self.path = path  # output path
         self.server_conn = server_conn  # connection object
         self.lock = lock
@@ -12,6 +12,8 @@ class server:
         self.step_server = step_server # step size of server
         self.Lambda = Lambda
         self.T = T  # number of tasks
+        self.mu = mu
+        self.sigma = sigma
         self.P = zeros((self.T, self.d))
         self.S = zeros((self.T, self.d))
 
@@ -29,6 +31,7 @@ class server:
             s[s < self.step_server * self.Lambda] = 0.0
             self.P = u.dot(diag(s)).dot(vh)
             p_new = self.P[index] # send corresponding column of P to task
+            p_new = p_new + random.normal(self.mu, self.sigma, self.d) # add Gaussisan noise
             self.lock.release()
 
             self.server_conn.put((p_new, index)) # send p_new and index to task

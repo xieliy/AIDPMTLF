@@ -9,8 +9,9 @@ import time
 
 class task:
 
-    def __init__(self, path, data, label, task_conn, index, Lambda, ITER, p_ite, step_task, d, p_train, wait_time):
+    def __init__(self, path, dataset, data, label, task_conn, index, Lambda, ITER, p_ite, step_task, d, p_train, wait_time):
         self.path = path  # output path
+        self.dataset = dataset  # data set type
         self.task_conn = task_conn # connection object
         self.index = index # task number
         self.Lambda = Lambda # regularization parameter
@@ -28,7 +29,7 @@ class task:
         self.q = [] # task specific component
         self.p = [] # shared component
         self.L = len(self.label_train) # number of training data
-        self.fn = 'error_all' + str(self.index) # file name
+        self.fn = self.dataset + 'err' + str(self.index) # file name
 
     def measurec(self, data, label, model):
         '''Classification Error rate of task model in each iteration'''
@@ -84,9 +85,9 @@ class task:
         while not self.task_conn.empty():
             p_new, ind = self.task_conn.get()  # received from central server
 
-            if self.index == ind:
+            if self.index == ind: # check if the p send back is the corresponding one
 
-                time.sleep(self.wait_time)  # sleep for a while.
+                time.sleep(self.wait_time)  # sleep for a while to represent the asynchronous situation in real world
 
                 q_old = self.q
                 self.q = self.logistic_grad_q()
@@ -102,8 +103,7 @@ class task:
         duration = time.time() - start_time
 
         with open(self.path + 'duration.txt', 'a+') as f:  # store the training time
-            f.write('Task' + str(self.index) + ':' +str(duration))
+            f.write('Task' + str(self.index) + ':' + str(duration))
             f.write('\n')
 
         pickle.dump(self.error_all, open(self.path + self.fn, 'w'))  # store error rate of all iterations
-        pickle.dump(array(self.q) + array(self.p), open(self.path + self.fn, 'w'))  # store error rate of all iterations
